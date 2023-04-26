@@ -18,10 +18,27 @@ function rb_enqueue_scripts() {
 // Add the rainbow effect to the homepage
 function rb_add_rainbow() {
     if ( is_front_page() ) {
+        echo '<style>
+            #rb-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+
+            #rb-rainbow {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                transition: background-color 1s ease-in-out;
+            }
+        </style>';
+        echo '<div id="rb-container"><div id="rb-rainbow"></div></div>';
         ?>
-        <div id="rb-container">
-            <div id="rb-rainbow"></div>
-        </div>
         <script>
             var colors = ['#ff0000', '#ffa500', '#ffff00', '#008000', '#0000ff', '#4b0082', '#ee82ee'];
             var rainbow = document.getElementById('rb-rainbow');
@@ -37,7 +54,4 @@ function rb_add_rainbow() {
         <?php
     }
 }
-
-// Register the hooks
-add_action( 'wp_enqueue_scripts', 'rb_enqueue_scripts' );
-add_action( 'wp_footer', 'rb_add_rainbow' );
+add_action( 'wp_head', 'rb_add_rainbow' );
